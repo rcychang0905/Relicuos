@@ -10,6 +10,5 @@ node_modules
 coverage
 dist
 test-results.xml
-public/scripts/TDApps.js
 public/styles/styles.css
 .tmp
