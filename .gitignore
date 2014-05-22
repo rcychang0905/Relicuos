@@ -1,0 +1,15 @@
+npm-debug.log
+node_modules
+*.swp
+.DS_Store
+.idea/*
+!.idea/runConfigurations/
+!.idea/inspectionProfiles/
+!.idea/jsLinters/
+!.jsLibraryMappings.xml
+coverage
+dist
+test-results.xml
+public/scripts/TDApps.js
+public/styles/styles.css
+.tmp

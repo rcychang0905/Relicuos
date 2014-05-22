@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="Relicuos">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable = no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+
+    <title>Relicuos</title>
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <div>
+        <header class="masthead">
+            <div class="brand">
+                <div class="logo"><a href="/"><img src="images/fg-td-logo.gif" alt="TD"/></a></div>
+                <div class="brand-name">Relicuos</div>
+            </div>
+        </header>
+        <div data-ui-view="global-nav"></div>
+    </div>
+    <div data-ui-view></div>
+</div>
+
+<!-- build:js scripts/app.min.js -->
+<script src="scripts/vendor/angular.js"></script>
+<script src="scripts/vendor/angular-ui-router.js"></script>
+<script src="scripts/vendor/fastclick.js"></script>
+
+<script src="scripts/app.js"></script>
+<!-- endbuild -->
+
+</body>
+</html>
