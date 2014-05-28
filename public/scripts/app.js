@@ -4,31 +4,35 @@
 
 (function () {
 
-	'use strict';
+  'use strict';
 
-	var rootModule = angular.module('Relicuos', ['ui.router']);
+  var rootModule = angular.module('Relicuos', [
+    'Relicuos.Controllers',
+    'Relicuos.Directives',
+    'ui.router'
+  ]);
 
-	rootModule.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+  rootModule.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
-		$urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/');
 
-		$stateProvider.state('home', {
+    $stateProvider.state('home', {
 
-			url: '/',
+      url: '/',
+      templateUrl: 'tpl/home.tpl.html',
+      controller: 'home'
 
-			templateUrl: 'tpl/home.tpl.html'
+    });
 
-		});
+  }]);
 
-	}]);
+  rootModule.run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
 
-	rootModule.run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
+      $rootScope.$state = $state;
+      $rootScope.$stateParams = $stateParams;
 
-			$rootScope.$state = $state;
-			$rootScope.$stateParams = $stateParams;
-
-		}
-		]
-	);
+    }
+    ]
+  );
 
 }());
