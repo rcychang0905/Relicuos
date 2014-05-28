@@ -4,12 +4,34 @@
 
 angular.module('Relicuos.Controllers', []);
 
-angular.module('Relicuos.Controllers').controller('home', ['$scope','$state',function($scope, $state){
+angular.module('Relicuos.Controllers').controller('home', ['$scope','$state','$http', function($scope, $state, $http){
 
   'use strict';
 
   $scope.onClick = function(){
-    $state.go('authenticate');
+
+    var newEvent = {
+      category: "baseball",
+      date: new Date('June 23, 2014'),
+      home: "Chicago Cubs",
+      betsOnHome: 3,
+      away: "New York Yankees",
+      betsOnAway: 2,
+      oddsHome: 2,
+      oddsAway: 1.5
+    };
+
+//    $http.post("/createSingleEvent", newEvent).success(function(){
+//      console.log("got to here");
+//    }).error(function(){
+//      console.log("error");
+//    });
+
+    $http.get("/getSingleEvent/Chicago Cubs").success(function(data){
+      console.dir(data);
+    }).error(function(){
+      console.log("error");
+    });
   };
 
   $scope.event = {
