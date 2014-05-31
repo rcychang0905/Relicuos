@@ -4,26 +4,29 @@
 
 'use strict';
 
-var q = require('q');
+var q = require('q'),
 
-var connectToMongo = function () {
-
-  var MongoClient = require('mongodb').MongoClient,
-    Server = require('mongodb').Server,
-    deferred = q.defer(),
-    mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
-
-  mongoclient.open(function (err, mongoclient) {
+  throwError = function (err) {
     if (err) {
       throw err;
     }
+  },
 
-    console.log("db open");
-    deferred.resolve(mongoclient);
-  });
+  connectToMongo = function () {
+    var MongoClient = require('mongodb').MongoClient,
+      Server = require('mongodb').Server,
+      deferred = q.defer(),
+      mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 
-  return deferred.promise;
-};
+    mongoclient.open(function (err, mongoclient) {
+      if (err) {
+        throw err;
+      }
+      deferred.resolve(mongoclient);
+    });
+
+    return deferred.promise;
+  };
 
 module.exports = {
 
@@ -37,9 +40,8 @@ module.exports = {
       var db_Relicuos = mongoclient.db('Relicuos');
 
       db_Relicuos.collection('events').insert(req.body, function (err, result) {
-        if (err) {
-          throw err;
-        }
+        throwError(err);
+        mongoclient.close();
       });
     };
   },
@@ -53,10 +55,10 @@ module.exports = {
     var operation = function (mongoclient) {
       var db_Relicuos = mongoclient.db('Relicuos');
 
-      db_Relicuos.collection('events').find({'category': req.params.category}).toArray(function (err, results) {
-        if (err) {
-          throw err;
-        }
+      db_Relicuos.collection('events').find({
+        'category': req.params.category
+      }).toArray(function (err, results) {
+        throwError(err);
 
         res.json(results);
         mongoclient.close();
