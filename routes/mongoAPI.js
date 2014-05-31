@@ -66,7 +66,7 @@ module.exports = {
       console.log("db open");
       var Event = mongoose.model('event', eventSchema);
 
-      Event.findOne({'home': req.params.home}, '', function (err, results) {
+      Event.findOne({'category': req.params.category}, '', function (err, results) {
         if (err) {
           console.err(err);
         }

@@ -25,7 +25,7 @@ if ('development' === app.get('env')) {
 }
 
 app.post('/createSingleEvent', mongoApi.createSingleEvent);
-app.get('/getSingleEvent/:home', mongoApi.getSingleEvent);
+app.get('/getSingleEvent/:category', mongoApi.getSingleEvent);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Relicuos server listening on port ' + app.get('port'));

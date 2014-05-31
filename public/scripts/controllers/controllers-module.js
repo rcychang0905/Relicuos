@@ -8,6 +8,8 @@ angular.module('Relicuos.Controllers').controller('home', ['$scope','$state','$h
 
   'use strict';
 
+  $scope.event = {};
+
   $scope.onClick = function(){
 
     var newEvent = {
@@ -27,16 +29,19 @@ angular.module('Relicuos.Controllers').controller('home', ['$scope','$state','$h
 //      console.log("error");
 //    });
 
-    $http.get("/getSingleEvent/Chicago Cubs").success(function(data){
+    $http.get("/getSingleEvent/baseball").success(function(data){
       console.dir(data);
     }).error(function(){
       console.log("error");
     });
   };
 
-  $scope.event = {
-    "home": "Jays",
-    "away": "Cubs"
-  };
+  $http.get("/getSingleEvent/baseball").success(function(data){
+    console.dir(data);
+    $scope.event = data;
+  }).error(function(){
+    console.log("error");
+  });
+
 
 }]);
