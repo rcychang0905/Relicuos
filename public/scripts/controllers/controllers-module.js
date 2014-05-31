@@ -4,41 +4,57 @@
 
 angular.module('Relicuos.Controllers', []);
 
-angular.module('Relicuos.Controllers').controller('home', ['$scope','$state','$http', function($scope, $state, $http){
+angular.module('Relicuos.Controllers').controller('home', ['$scope', '$state', '$http', function ($scope, $state, $http) {
 
   'use strict';
 
-  $scope.event = {};
-
-  $scope.onClick = function(){
-
-    var newEvent = {
+  var newEvent = [
+    {
       category: "baseball",
       date: new Date('June 23, 2014'),
-      home: "Chicago Cubs",
-      betsOnHome: 3,
-      away: "New York Yankees",
-      betsOnAway: 2,
+      home: "Toronto Blue Jays",
+      betsOnHome: 6,
+      away: "Seattle Mariners",
+      betsOnAway: 6,
+      oddsHome: 1,
+      oddsAway: 1
+    },
+    {
+      category: "baseball",
+      date: new Date('June 23, 2014'),
+      home: "San Francisco Giants",
+      betsOnHome: 2,
+      away: "Los Angeles Angels",
+      betsOnAway: 4,
       oddsHome: 2,
-      oddsAway: 1.5
-    };
+      oddsAway: 4
+    }
+  ];
 
-//    $http.post("/createSingleEvent", newEvent).success(function(){
-//      console.log("got to here");
-//    }).error(function(){
-//      console.log("error");
-//    });
+  $scope.addEvent = function () {
 
-    $http.get("/getSingleEvent/baseball").success(function(data){
+    $http.post("/createSingleEvent", newEvent).success(function (data) {
+      console.log("post success");
       console.dir(data);
-    }).error(function(){
+    }).error(function () {
       console.log("error");
     });
+
+  };
+
+  $scope.getEvent = function () {
+
+    $http.get("/getSingleEvent/baseball").success(function (data) {
+      console.dir(data);
+    }).error(function () {
+      console.log("error");
+    });
+
   };
 
   $http.get("/getSingleEvent/baseball").success(function(data){
-    console.dir(data);
-    $scope.event = data;
+    $scope.events = data;
+    console.dir($scope.events);
   }).error(function(){
     console.log("error");
   });

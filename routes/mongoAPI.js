@@ -4,75 +4,64 @@
 
 'use strict';
 
+var q = require('q');
+
 var connectToMongo = function () {
 
-    var mongoose = require('mongoose');
-    mongoose.connect('mongodb://localhost/Relicuos');
+  var MongoClient = require('mongodb').MongoClient,
+    Server = require('mongodb').Server,
+    deferred = q.defer(),
+    mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
 
-    return mongoose;
+  mongoclient.open(function (err, mongoclient) {
+    if (err) {
+      throw err;
+    }
 
-  },
+    console.log("db open");
+    deferred.resolve(mongoclient);
+  });
 
-  createEventSchema = function (mongoose) {
-
-    return mongoose.Schema({
-      category: String,
-      date: Date,
-      home: String,
-      betsOnHome: Number,
-      away: String,
-      betsOnAway: Number,
-      oddsHome: Number,
-      oddsAway: Number
-    });
-
-  };
+  return deferred.promise;
+};
 
 module.exports = {
 
   createSingleEvent: function (req, res) {
 
-    var mongoose = connectToMongo(),
-
-      eventSchema = createEventSchema(mongoose),
-
-      db = mongoose.connection;
-
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function callback() {
-      var Event = mongoose.model('event', eventSchema);
-
-      var newEvent = new Event(req.body);
-
-      newEvent.save(function (err, newEvent) {
-        if (err) {
-          return console.err(err);
-        }
-        console.dir(newEvent);
-      });
+    connectToMongo().then(function success(mongoclient) {
+      operation(mongoclient);
     });
+
+    var operation = function (mongoclient) {
+      var db_Relicuos = mongoclient.db('Relicuos');
+
+      db_Relicuos.collection('events').insert(req.body, function (err, result) {
+        if (err) {
+          throw err;
+        }
+      });
+    };
   },
 
   getSingleEvent: function (req, res) {
 
-    var mongoose = connectToMongo(),
-
-      eventSchema = createEventSchema(mongoose),
-
-      db = mongoose.connection;
-
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function callback() {
-      console.log("db open");
-      var Event = mongoose.model('event', eventSchema);
-
-      Event.findOne({'category': req.params.category}, '', function (err, results) {
-        if (err) {
-          console.err(err);
-        }
-        res.json(results);
-      });
+    connectToMongo().then(function success(mongoclient) {
+      operation(mongoclient);
     });
+
+    var operation = function (mongoclient) {
+      var db_Relicuos = mongoclient.db('Relicuos');
+
+      db_Relicuos.collection('events').find({'category': req.params.category}).toArray(function (err, results) {
+        if (err) {
+          throw err;
+        }
+
+        res.json(results);
+        mongoclient.close();
+      });
+    };
   }
 
 };

@@ -5,10 +5,15 @@
         The crowd sourced social game to predict the future!
     </p>
 
-    <p>Have fun!</p>
+    <p>This is the event page</p>
 
     <p>
-        <a class="btn btn-lg btn-primary" data-ng-click="onClick()" role="button">Experience »</a>
+        <a class="btn btn-lg btn-primary" data-ng-click="addEvent()" role="button">Add</a>
+        <a class="btn btn-lg btn-primary" data-ng-click="getEvent()" role="button">Get</a>
     </p>
+
+    <div ng-repeat="event in events">
+        <div data-single-event data-home="{{event.home}}" data-away="{{event.away}}"></div>
+    </div>
 </div>
-<div data-single-event data-home="{{event.home}}" data-away="{{event.away}}"></div>
+
