@@ -46,6 +46,23 @@ module.exports = {
     };
   },
 
+  updateSingleEventBetsCount: function(req, res){
+
+    connectToMongo().then(function success(mongoclient) {
+      operation(mongoclient);
+    });
+
+    var operation = function(mongoclient){
+      var db_Relicuos = mongoclient.db('Relicuos'),
+        ObjectID = require('mongodb').ObjectID;
+
+      db_Relicuos.collection('events').update({'_id': new ObjectID(req.body[0].id)}, { $inc: req.body[1]}, function(err, result){
+        throwError(err);
+        mongoclient.close();
+      });
+    };
+  },
+
   getSingleEvent: function (req, res) {
 
     connectToMongo().then(function success(mongoclient) {

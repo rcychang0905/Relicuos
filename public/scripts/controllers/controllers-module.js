@@ -44,7 +44,6 @@ angular.module('Relicuos.Controllers').controller('home', ['$scope', '$state', '
   $scope.addEvent = function () {
 
     $http.post("/createSingleEvent", newEvent).success(function (data) {
-      console.log("post success");
       console.dir(data);
     }).error(function () {
       console.log("error");

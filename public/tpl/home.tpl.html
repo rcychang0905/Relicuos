@@ -13,7 +13,9 @@
     </p>
 
     <div ng-repeat="event in events">
-        <div data-single-event data-home="{{event.home}}" data-away="{{event.away}}"></div>
+        <div data-single-event data-home="{{event.home}}" data-away="{{event.away}}"
+            data-bets-on-home="{{event.betsOnHome}}" data-bets-on-away="{{event.betsOnAway}}"
+            data-event-id="{{event._id}}"></div>
     </div>
 </div>
 

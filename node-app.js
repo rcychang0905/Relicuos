@@ -25,6 +25,7 @@ if ('development' === app.get('env')) {
 }
 
 app.post('/createSingleEvent', mongoApi.createSingleEvent);
+app.post('/updateSingleEventBetsCount', mongoApi.updateSingleEventBetsCount);
 app.get('/getSingleEvent/:category', mongoApi.getSingleEvent);
 
 http.createServer(app).listen(app.get('port'), function () {
