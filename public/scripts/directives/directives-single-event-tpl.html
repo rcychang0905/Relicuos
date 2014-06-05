@@ -1,7 +1,15 @@
-<div class="btn-group">
-    <button type="button" class="btn btn-default" data-ng-click="clickHome()">{{home}}</button>
-    <button type="button" class="btn btn-default">{{betsOnHome}}</button>
-    <button type="button" class="btn btn-default">vs</button>
-    <button type="button" class="btn btn-default">{{betsOnAway}}</button>
-    <button type="button" class="btn btn-default" data-ng-click="clickAway()">{{away}}</button>
+<div class="row">
+    <div class="col-xs-2">
+        <a href="#" class="btn btn-success" data-ng-click="clickHome()">{{home}}</a>
+
+        <div>Bets on home: {{betsOnHome}}</div>
+    </div>
+    <div class="col-xs-1">
+        <H4>VS</H4>
+    </div>
+    <div class="col-xs-1">
+        <a href="#" class="btn btn-warning" data-ng-click="clickAway()">{{away}}</a>
+
+        <div>Bets on away: {{betsOnAway}}</div>
+    </div>
 </div>

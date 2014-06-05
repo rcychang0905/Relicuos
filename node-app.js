@@ -3,7 +3,7 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var mongoApi = require('./routes/mongoAPI');
+var eventsApi = require('./routes/eventsAPI');
 
 var app = express();
 
@@ -24,9 +24,9 @@ if ('development' === app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.post('/createSingleEvent', mongoApi.createSingleEvent);
-app.post('/updateSingleEventBetsCount', mongoApi.updateSingleEventBetsCount);
-app.get('/getSingleEvent/:category', mongoApi.getSingleEvent);
+app.post('/createSingleEvent', eventsApi.createSingleEvent);
+app.post('/updateSingleEventBetsCount', eventsApi.updateSingleEventBetsCount);
+app.get('/getSingleEvent/:category', eventsApi.getSingleEvent);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Relicuos server listening on port ' + app.get('port'));

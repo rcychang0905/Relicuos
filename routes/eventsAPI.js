@@ -1,38 +1,16 @@
 /**
- * Created by Ronnie on 2014-05-27.
+ * Created by Ronnie on 2014-06-03.
  */
 
 'use strict';
 
-var q = require('q'),
-
-  throwError = function (err) {
-    if (err) {
-      throw err;
-    }
-  },
-
-  connectToMongo = function () {
-    var MongoClient = require('mongodb').MongoClient,
-      Server = require('mongodb').Server,
-      deferred = q.defer(),
-      mongoclient = new MongoClient(new Server("localhost", 27017), {native_parser: true});
-
-    mongoclient.open(function (err, mongoclient) {
-      if (err) {
-        throw err;
-      }
-      deferred.resolve(mongoclient);
-    });
-
-    return deferred.promise;
-  };
+var utils = require("./utils.js");
 
 module.exports = {
 
   createSingleEvent: function (req, res) {
 
-    connectToMongo().then(function success(mongoclient) {
+    utils.connectToMongo().then(function success(mongoclient) {
       operation(mongoclient);
     });
 
@@ -40,7 +18,7 @@ module.exports = {
       var db_Relicuos = mongoclient.db('Relicuos');
 
       db_Relicuos.collection('events').insert(req.body, function (err, result) {
-        throwError(err);
+        utils.throwError(err);
         mongoclient.close();
       });
     };
@@ -48,7 +26,7 @@ module.exports = {
 
   updateSingleEventBetsCount: function(req, res){
 
-    connectToMongo().then(function success(mongoclient) {
+    utils.connectToMongo().then(function success(mongoclient) {
       operation(mongoclient);
     });
 
@@ -57,7 +35,7 @@ module.exports = {
         ObjectID = require('mongodb').ObjectID;
 
       db_Relicuos.collection('events').update({'_id': new ObjectID(req.body[0].id)}, { $inc: req.body[1]}, function(err, result){
-        throwError(err);
+        utils.throwError(err);
         mongoclient.close();
       });
     };
@@ -65,7 +43,7 @@ module.exports = {
 
   getSingleEvent: function (req, res) {
 
-    connectToMongo().then(function success(mongoclient) {
+    utils.connectToMongo().then(function success(mongoclient) {
       operation(mongoclient);
     });
 
@@ -75,7 +53,7 @@ module.exports = {
       db_Relicuos.collection('events').find({
         'category': req.params.category
       }).toArray(function (err, results) {
-        throwError(err);
+        utils.throwError(err);
 
         res.json(results);
         mongoclient.close();
