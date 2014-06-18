@@ -1,15 +1,23 @@
-<div class="row">
-    <div class="col-xs-2">
-        <a href="#" class="btn btn-success" data-ng-click="clickHome()">{{home}}</a>
+<div>
+    <div class="media">
+        <a class="pull-left" href="#" data-ng-click="clickHome()">
+            <img class="media-object" src="..." alt="...">
+        </a>
 
-        <div>Bets on home: {{betsOnHome}}</div>
+        <div class="media-body">
+            <div class="media-heading">{{home}}</div>
+            Bets on home: {{betsOnHome}}
+        </div>
     </div>
-    <div class="col-xs-1">
-        <H4>VS</H4>
-    </div>
-    <div class="col-xs-1">
-        <a href="#" class="btn btn-warning" data-ng-click="clickAway()">{{away}}</a>
+    <H4>VS</H4>
+    <div class="media">
+        <a class="pull-left" href="#" data-ng-click="clickAway()">
+            <img class="media-object" src="..." alt="...">
+        </a>
 
-        <div>Bets on away: {{betsOnAway}}</div>
+        <div class="media-body">
+            <div class="media-heading">{{away}}</div>
+            Bets on home: {{betsOnAway}}
+        </div>
     </div>
 </div>

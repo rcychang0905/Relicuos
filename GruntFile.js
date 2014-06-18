@@ -40,8 +40,7 @@ module.exports = function (grunt) {
           {src: 'package.json', dest: 'dist/'},
           {src: 'node-app.js', dest: packagedDir},
           {src: 'public/images/**', dest: packagedDir},
-          {src: 'public/styles/**', dest: packagedDir},
-          {src: 'public/favicon.ico', dest: packagedDir}
+          {src: 'public/styles/**', dest: packagedDir}
         ]
       },
       spa: {
@@ -50,34 +49,37 @@ module.exports = function (grunt) {
       }
     },
 
-    ngtemplates: {
-      app: {
+    less: {
+      development: {
         options: {
-          module: 'TD.Relicuos',
-          usemin: packagedDir + 'public/scripts/app.min.js'
+          compress: true,
+          yuicompress: true,
+          optimization: 2
         },
-        cwd: 'public',
-        src: ['tpl/**/*.html'],
-        dest: packagedDir + 'public/scripts/app.template.js'
+        files: {
+          // target.css file: source.less file
+          "public/styles/styles.css": "src/less/styles.less"
+        }
+      }
+    },
+
+    watch: {
+      styles: {
+        files: ['src/less/**/*.less'], // which files to watch
+        tasks: ['less'],
+        options: {
+          nospawn: true
+        }
       }
     }
-
-
   });
 
   grunt.loadNpmTasks('grunt-karma');
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.loadNpmTasks('grunt-mkdir');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-
-  grunt.loadNpmTasks('grunt-usemin');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-angular-templates');
-
-  grunt.registerTask('default', ['jshint', 'karma']);
+  grunt.registerTask('default', ['less', 'jshint', 'karma']);
 
 };

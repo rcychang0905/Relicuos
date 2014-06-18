@@ -1,21 +1,19 @@
 <div class="jumbotron">
-    <h1>Relicuos</h1>
+    <div class="row">
+        <div class="text-center center-block">
+            <p>This is the event page</p>
 
-    <p>
-        The crowd sourced social game to predict the future!
-    </p>
+            <p>
+                <a class="btn btn-lg btn-primary" data-ng-click="addEvent()" role="button">Add</a>
+                <a class="btn btn-lg btn-primary" data-ng-click="getEvent()" role="button">Get</a>
+            </p>
 
-    <p>This is the event page</p>
-
-    <p>
-        <a class="btn btn-lg btn-primary" data-ng-click="addEvent()" role="button">Add</a>
-        <a class="btn btn-lg btn-primary" data-ng-click="getEvent()" role="button">Get</a>
-    </p>
-
-    <div ng-repeat="event in events">
-        <div data-single-event data-home="{{event.home}}" data-away="{{event.away}}"
-             data-bets-on-home="{{event.betsOnHome}}" data-bets-on-away="{{event.betsOnAway}}"
-             data-event-id="{{event._id}}"></div>
+            <div ng-repeat="event in events">
+                <div data-single-event data-home="{{event.home}}" data-away="{{event.away}}"
+                     data-bets-on-home="{{event.betsOnHome}}" data-bets-on-away="{{event.betsOnAway}}"
+                     data-event-id="{{event._id}}"></div>
+            </div>
+        </div>
     </div>
 </div>
 
