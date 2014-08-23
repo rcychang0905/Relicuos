@@ -10,17 +10,20 @@ module.exports = function (config) {
 
 		// list of files / patterns to load in the browser
 		files: [
-
-			'public/scripts/vendor/angular.js',
-			'test/scripts/controller-spec.js'
-
+      'public/vendor/angular.js',
+      'public/*.js',
+      'public/**/*.js',
+			'test/**/*.js'
 		],
 
 		// list of files to exclude
-		exclude: [],
+		exclude: [
+      'public/bower_components/**/*.js'
+    ],
 
 		preprocessors: {
-			'public/scripts/accounts/**/*.js': ['coverage']
+      'public/*.js': ['coverage'],
+      'public/**/*.js': ['coverage']
 		},
 
 		// use dots reporter, as travis terminal does not support escaping sequences

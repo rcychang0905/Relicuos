@@ -12,7 +12,7 @@ angular.module('Relicuos.Directives').directive('singleEvent', ['$http', functio
 
     replace: 'true',
 
-    templateUrl: 'scripts/directives/directives-single-event-tpl.html',
+    templateUrl: 'directives/directives-single-event-tpl.html',
 
     scope: {
       home: '@',
